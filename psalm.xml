@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://getpsalm.org/schema/config"
+       xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+       errorLevel="1"
+       findUnusedBaselineEntry="false"
+       findUnusedCode="false"
+       errorBaseline="psalm-baseline.xml"
+       phpVersion="8.1"
+>
+    <issueHandlers>
+        <RedundantConditionGivenDocblockType errorLevel="suppress"/>
+        <RedundantCastGivenDocblockType errorLevel="suppress"/>
+        <MissingOverrideAttribute errorLevel="suppress"/>
+        <MissingConstructor>
+            <errorLevel type="suppress">
+                <directory name="src/Module/Config"/>
+            </errorLevel>
+        </MissingConstructor>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="src/Command"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+    </issueHandlers>
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <directory name="tests"/>
+        </ignoreFiles>
+    </projectFiles>
+    <forbiddenFunctions>
+        <function name="dd"/>
+        <function name="exit"/>
+        <function name="die"/>
+        <function name="var_dump"/>
+        <function name="echo"/>
+        <function name="print"/>
+        <function name="trap"/>
+        <function name="td"/>
+        <function name="tr"/>
+    </forbiddenFunctions>
+</psalm>

@@ -1,0 +1,7 @@
+/.*/
+!/.github/
+/runtime/
+/vendor/
+/.env
+*.log
+*.exe

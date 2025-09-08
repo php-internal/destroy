@@ -1,0 +1,83 @@
+{
+    "name": "internal/destroy",
+    "description": "",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "memory",
+        "download binaries"
+    ],
+    "authors": [
+        {
+            "name": "Aleksei Gagarin (roxblnfk)",
+            "homepage": "https://github.com/roxblnfk"
+        }
+    ],
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://patreon.com/roxblnfk"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "buggregator/trap": "^1.10",
+        "phpunit/phpunit": "^10.5",
+        "spiral/code-style": "^2.2.2",
+        "ta-tikoma/phpunit-architecture-test": "^0.8.4",
+        "vimeo/psalm": "^6.10"
+    },
+    "suggest": {
+        "ext-simplexml": "to support XML configs parsing"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Internal\\Destroy\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Internal\\Destroy\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "cs:diff": "php-cs-fixer fix --dry-run -v --diff",
+        "cs:fix": "php-cs-fixer fix -v",
+        "infect": [
+            "@putenv XDEBUG_MODE=coverage",
+            "roave-infection-static-analysis-plugin --configuration=infection.json.dist"
+        ],
+        "infect:ci": [
+            "@putenv XDEBUG_MODE=coverage",
+            "roave-infection-static-analysis-plugin --ansi --configuration=infection.json.dist --logger-github --ignore-msi-with-no-mutations --only-covered"
+        ],
+        "psalm": "psalm",
+        "psalm:baseline": "psalm --set-baseline=psalm-baseline.xml",
+        "psalm:ci": "psalm --output-format=github --shepherd --show-info=false --stats --threads=4",
+        "refactor": "rector process --config=rector.php",
+        "refactor:ci": "rector process --config=rector.php --dry-run --ansi",
+        "test": [
+            "phpunit --color=always --no-coverage"
+        ],
+        "test:unit": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --color=always --testsuite=Unit"
+        ],
+        "test:arch": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --color=always --testsuite=Arch"
+        ],
+        "test:acc": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --color=always --testsuite=Acceptance"
+        ],
+        "test:cc": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --coverage-clover=runtime/phpunit/logs/clover.xml --color=always"
+        ]
+    }
+}
