@@ -12,3 +12,4 @@ Dockerfile             export-ignore
 infection.*            export-ignore
 tests                  export-ignore
 docs                   export-ignore
+resources              export-ignore
