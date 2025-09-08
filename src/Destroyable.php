@@ -15,6 +15,8 @@ namespace Internal\Destroy;
  * - Breaking circular references to prevent memory leaks
  * - Immediate release of external resources (files, connections, locks)
  * - Explicit lifecycle control in daemon processes
+ *
+ * @api
  */
 interface Destroyable
 {
@@ -31,8 +33,6 @@ interface Destroyable
      * - Unsubscribe from events and remove listeners
      * - Objects with defined scope should call {@see destroy()} on dependent {@see Destroyable} instances
      * - Must be idempotent (safe to call multiple times)
-     *
-     * @return void
      */
     public function destroy(): void;
 }
