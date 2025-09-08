@@ -17,7 +17,30 @@
 The package provides explicit resource management for PHP applications through the `Destroyable` interface.
 It solves memory leaks in long-running applications by enabling deterministic cleanup of resources and breaking circular reference chains that prevent garbage collection.
 
-Perfect for daemon processes, event-driven applications, and any scenario where `__destruct()` alone isn't sufficient for proper resource management.
+**Why Not Just `__destruct()`?**
+
+PHP's `__destruct()` method has critical limitations with circular references.
+While simple two-object cycles (A → B → A) can sometimes be resolved by `gc_collect_cycles()`,
+more complex scenarios with three or more interconnected objects often fail to trigger destructors at all.
+
+Additionally, `gc_collect_cycles()` has significant performance overhead,
+making frequent calls impractical in high-performance applications.
+
+```php
+// Simple cycle - might be collected eventually
+$a->ref = $b;
+$b->ref = $a;
+
+// Complex cycle - often never collected
+$a->ref = $b;
+$b->ref = $c; 
+$c->ref = $a;
+```
+
+The `Destroyable` interface provides explicit control over cleanup,
+ensuring resources are freed deterministically without relying on garbage collection cycles or performance-impacting manual collection calls.
+
+Perfect for daemon processes, event-driven applications, and any scenario where deterministic resource cleanup is critical.
 
 ## Installation
 
